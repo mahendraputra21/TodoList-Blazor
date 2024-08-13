@@ -1,0 +1,89 @@
+﻿@inherits ComponentBase
+@using TodoList.Client.Models
+@using TodoList.Client.Services
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+   
+    <div class="flex-grow-1 me-3">
+        <input type="text"
+               class="form-control"
+               @bind="@SearchTerm"
+               @bind:event="oninput"
+               @onkeypress="@HandleKeyPress"
+               placeholder="Search by Id or Todo or Completed(true/false) (Press Enter to search)" />
+    </div>
+    
+    <Button Color="ButtonColor.Primary">Add Todo</Button>
+</div>
+
+@if (State.TodoData == null)
+{
+    <div class="d-flex justify-content-center">
+        <Spinner Type="SpinnerType.Border" Class="me-3" Color="SpinnerColor.Primary" />
+    </div>
+}
+else
+{
+    <Grid @key="GridKey"
+         TItem="TodoModel"
+         Class="table table-hover table-bordered table-striped"
+         DataProvider="@TodoDataProvider"
+         AllowSelection="true"
+         SelectionMode="GridSelectionMode.Single"
+         @bind-SelectedItems="@State.SelectedTodos"
+         Responsive="true"
+         AllowPaging="true"
+         PageSize="10">
+
+         <GridColumns>
+            <GridColumn 
+                TItem="TodoModel" 
+                HeaderText="TODO" 
+                PropertyName="Todo" 
+                HeaderTextAlignment="Alignment.Center">
+                @context.Todo
+            </GridColumn>
+            <GridColumn 
+                TItem="TodoModel" 
+                HeaderText="COMPLETED" 
+                PropertyName="Completed" 
+                HeaderTextAlignment="Alignment.Center" 
+                TextAlignment="Alignment.Center">
+                @{
+                    var iconName = context.Completed ? IconName.CheckSquareFill : IconName.XCircleFill;
+                    var iconColor = context.Completed ? "text-success" : "text-danger";
+                }
+                <Icon Name="@iconName" Class="@iconColor" Size="IconSize.x6"/>
+            </GridColumn>
+            <GridColumn TItem="TodoModel"
+                        HeaderText="ACTION"
+                        PropertyName="Id"
+                        HeaderTextAlignment="Alignment.Center"
+                        TextAlignment="Alignment.Center">
+                <Button Color="ButtonColor.Primary"
+                        Disabled="@(State.SelectedTodos.FirstOrDefault()?.Id != context.Id)"
+                        Size="Size.Small"
+                        Outline="true">
+                    <Icon Name="IconName.PencilSquare" /> UPDATE
+                </Button>
+                |
+                <Button Color="ButtonColor.Secondary"
+                        Disabled="@(State.SelectedTodos.FirstOrDefault()?.Id != context.Id)"
+                        @onclick="@(() => ShowConfirmationAsync(context.Id))"
+                        Size="Size.Small"
+                        Outline="true">
+                    <Icon Name="IconName.Trash" /> DELETE
+                </Button>
+            </GridColumn>
+         </GridColumns>
+    </Grid>
+
+    <ConfirmDialog @ref="dialog" />
+
+    <Toasts class="p-3"
+            Messages="@((NotificationService as NotificationService)?.Messages)"
+            AutoHide="true" 
+            Delay="6000" 
+            Placement="ToastsPlacement.TopRight" />
+   
+}

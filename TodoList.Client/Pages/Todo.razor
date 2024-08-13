@@ -1,0 +1,14 @@
+﻿@page "/todo"
+@using TodoList.Client.Components
+
+@* @attribute [Authorize] *@
+
+@* Call Todo Component *@
+<ErrorBoundary>
+    <ChildContent>
+        <TodoGridComponent />
+    </ChildContent>
+    <ErrorContent>
+        <p class="error">An error occurred: @context.Message</p>
+    </ErrorContent>
+</ErrorBoundary>
