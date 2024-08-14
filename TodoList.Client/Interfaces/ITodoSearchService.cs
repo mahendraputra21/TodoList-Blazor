@@ -4,6 +4,6 @@ namespace TodoList.Client.Interfaces
 {
     public interface ITodoSearchService
     {
-        IEnumerable<TodoModel> SearchTodos(IEnumerable<TodoModel> todos, string searchTerm);
+        Task<List<TodoModel>?> SearchTodos(string searchTerm);
     }
 }

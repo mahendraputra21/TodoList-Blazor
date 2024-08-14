@@ -15,7 +15,7 @@ namespace TodoList.Client.Components
 
         private TodoState State { get; set; } = new TodoState();
         private List<TodoModel> AllTodos { get; set; } = [];
-        private string SearchTerm { get; set; } = string.Empty;
+        private string? SearchTerm { get; set; } = string.Empty;
         private Guid GridKey { get; set; } = Guid.NewGuid();
 
         private ConfirmDialog dialog = default!;
@@ -53,16 +53,16 @@ namespace TodoList.Client.Components
                 Total = await TodoDataProvider1.GetTotalCountAsync()
             };
         }
-        private void HandleKeyPress(KeyboardEventArgs e)
+        private async Task HandleKeyPress(KeyboardEventArgs e)
         {
             if (e.Key == "Enter")
             {
-                HandleTodoGridSearch();
+                await HandleTodoGridSearch();
             }
         }
-        private void HandleTodoGridSearch()
+        private async Task HandleTodoGridSearch()
         {
-            var filteredTodos = TodoSearchService.SearchTodos(AllTodos, SearchTerm).ToList();
+            var filteredTodos = await TodoSearchService.SearchTodos(SearchTerm);
 
             State.TodoData = new TodoResponse
             {
