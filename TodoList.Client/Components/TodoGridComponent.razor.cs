@@ -15,7 +15,7 @@ namespace TodoList.Client.Components
 
         private TodoState State { get; set; } = new TodoState();
         private List<TodoModel> AllTodos { get; set; } = [];
-        private string SearchTerm { get; set; } = string.Empty;
+        private string? SearchTerm { get; set; } = string.Empty;
         private Guid GridKey { get; set; } = Guid.NewGuid();
 
         private ConfirmDialog dialog = default!;

@@ -50,7 +50,7 @@ namespace TodoList.Server.Controllers
         }
 
         [HttpGet("search")]
-        public async Task<ActionResult<IEnumerable<TodoDto>>> SearchTodos([FromQuery] string searchTerm)
+        public async Task<ActionResult<IEnumerable<TodoDto>>> SearchTodos([FromQuery] string? searchTerm)
         {
             var allTodos = await _todoDataProvider.GetTodosAsync(int.MaxValue, 0); // Get all todos
 

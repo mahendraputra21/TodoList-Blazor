@@ -4,7 +4,7 @@ namespace TodoList.Server.TodoList.Interfaces
 {
     public class TodoSearchService : ITodoSearchService
     {
-        public IEnumerable<TodoDto> SearchTodos(IEnumerable<TodoDto> todos, string searchTerm)
+        public IEnumerable<TodoDto> SearchTodos(IEnumerable<TodoDto> todos, string? searchTerm)
         {
             if (string.IsNullOrWhiteSpace(searchTerm))
                 return todos;
