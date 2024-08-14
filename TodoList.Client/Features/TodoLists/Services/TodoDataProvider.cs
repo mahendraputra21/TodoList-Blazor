@@ -1,7 +1,7 @@
-﻿using TodoList.Client.Interfaces;
-using TodoList.Client.Models;
+﻿using TodoList.Client.Features.TodoLists.Interfaces;
+using TodoList.Client.Features.TodoLists.Models;
 
-namespace TodoList.Client.Services
+namespace TodoList.Client.Features.TodoLists.Services
 {
     public class TodoDataProvider : ITodoDataProvider
     {
@@ -26,7 +26,7 @@ namespace TodoList.Client.Services
 
         public async Task<bool> DeleteTodoByIdAsync(int id)
         {
-           return await _todoService.DeleteTodoByIdAsync(id);
+            return await _todoService.DeleteTodoByIdAsync(id);
         }
     }
 }

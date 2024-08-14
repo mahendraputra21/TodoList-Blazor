@@ -1,8 +1,8 @@
 ﻿using BlazorBootstrap;
-using TodoList.Client.Interfaces;
-using TodoList.Client.Models;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
+using TodoList.Client.Features.TodoLists.Models;
+using TodoList.Client.Features.TodoLists.Interfaces;
 
 namespace TodoList.Client.Components
 {
@@ -15,7 +15,7 @@ namespace TodoList.Client.Components
 
         private TodoState State { get; set; } = new TodoState();
         private List<TodoModel> AllTodos { get; set; } = [];
-        private string SearchTerm { get; set; } = string.Empty;
+        private string? SearchTerm { get; set; } = string.Empty;
         private Guid GridKey { get; set; } = Guid.NewGuid();
 
         private ConfirmDialog dialog = default!;
@@ -53,16 +53,16 @@ namespace TodoList.Client.Components
                 Total = await TodoDataProvider1.GetTotalCountAsync()
             };
         }
-        private void HandleKeyPress(KeyboardEventArgs e)
+        private async Task HandleKeyPress(KeyboardEventArgs e)
         {
             if (e.Key == "Enter")
             {
-                HandleTodoGridSearch();
+                await HandleTodoGridSearch();
             }
         }
-        private void HandleTodoGridSearch()
+        private async Task HandleTodoGridSearch()
         {
-            var filteredTodos = TodoSearchService.SearchTodos(AllTodos, SearchTerm).ToList();
+            var filteredTodos = await TodoSearchService.SearchTodos(SearchTerm);
 
             State.TodoData = new TodoResponse
             {
@@ -111,8 +111,7 @@ namespace TodoList.Client.Components
 
                     // show Toast auto hide
                     NotificationService.AddToastMessage(
-                        ToastType.Success,
-                        "Delete Successful",
+                        ToastType.Light,
                         $"Todo with ID {id} has been successfully deleted."
                         );
 
@@ -122,8 +121,7 @@ namespace TodoList.Client.Components
                 {
                     // Show error toast if deletion fails
                     NotificationService.AddToastMessage(
-                        ToastType.Danger,
-                        "Delete Failed",
+                        ToastType.Light,
                         $"Failed to delete Todo with ID {id}. Error: {ex.Message}"
                         );
                 }

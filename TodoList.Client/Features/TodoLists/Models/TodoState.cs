@@ -1,4 +1,4 @@
-﻿namespace TodoList.Client.Models
+﻿namespace TodoList.Client.Features.TodoLists.Models
 {
     public class TodoState
     {

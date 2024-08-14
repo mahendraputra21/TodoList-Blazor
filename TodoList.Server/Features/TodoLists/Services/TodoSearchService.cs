@@ -1,11 +1,11 @@
-﻿using TodoList.Client.Interfaces;
-using TodoList.Client.Models;
+﻿using TodoList.Server.Features.TodoLists.Interfaces;
+using TodoList.Server.Features.TodoLists.Models;
 
-namespace TodoList.Client.Services
+namespace TodoList.Server.Features.TodoLists.Services
 {
     public class TodoSearchService : ITodoSearchService
     {
-        public IEnumerable<TodoModel> SearchTodos(IEnumerable<TodoModel> todos, string searchTerm)
+        public IEnumerable<TodoDto> SearchTodos(IEnumerable<TodoDto> todos, string? searchTerm)
         {
             if (string.IsNullOrWhiteSpace(searchTerm))
                 return todos;
