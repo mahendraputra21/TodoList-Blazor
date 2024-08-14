@@ -1,8 +1,7 @@
-﻿using TodoList.Client.Interfaces;
-using TodoList.Client.Models;
-using System.Net.Http.Json;
+﻿using TodoList.Server.Features.TodoLists.Interfaces;
+using TodoList.Server.Features.TodoLists.Models;
 
-namespace TodoList.Client.Services
+namespace TodoList.Server.Features.TodoLists.Services
 {
     public class TodoService : ITodoService
     {
@@ -11,7 +10,7 @@ namespace TodoList.Client.Services
 
         public TodoService(IHttpClientFactory clientFactory, ILogger<TodoService> logger)
         {
-            _httpClient = clientFactory.CreateClient("TodoListServer");
+            _httpClient = clientFactory.CreateClient("DummyJson");
             _logger = logger;
         }
 
@@ -19,7 +18,7 @@ namespace TodoList.Client.Services
         {
             try
             {
-                var response = await _httpClient.DeleteAsync($"/api/todo/{id}");
+                var response = await _httpClient.DeleteAsync($"/todos/{id}");
                 response.EnsureSuccessStatusCode();
                 return true;
             }
@@ -34,7 +33,7 @@ namespace TodoList.Client.Services
         {
             try
             {
-                var response = await _httpClient.GetAsync($"/api/todo?limit={limit}&skip={skip}");
+                var response = await _httpClient.GetAsync($"/todos?limit={limit}&skip={skip}");
                 response.EnsureSuccessStatusCode();
                 return await response.Content.ReadFromJsonAsync<TodoResponse?>();
             }

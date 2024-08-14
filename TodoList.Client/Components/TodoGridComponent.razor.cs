@@ -1,8 +1,8 @@
 ﻿using BlazorBootstrap;
-using TodoList.Client.Interfaces;
-using TodoList.Client.Models;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
+using TodoList.Client.Features.TodoLists.Models;
+using TodoList.Client.Features.TodoLists.Interfaces;
 
 namespace TodoList.Client.Components
 {
@@ -111,8 +111,7 @@ namespace TodoList.Client.Components
 
                     // show Toast auto hide
                     NotificationService.AddToastMessage(
-                        ToastType.Success,
-                        "Delete Successful",
+                        ToastType.Light,
                         $"Todo with ID {id} has been successfully deleted."
                         );
 
@@ -122,8 +121,7 @@ namespace TodoList.Client.Components
                 {
                     // Show error toast if deletion fails
                     NotificationService.AddToastMessage(
-                        ToastType.Danger,
-                        "Delete Failed",
+                        ToastType.Light,
                         $"Failed to delete Todo with ID {id}. Error: {ex.Message}"
                         );
                 }

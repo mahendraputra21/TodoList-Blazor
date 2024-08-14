@@ -1,4 +1,4 @@
-using TodoList.Server.TodoList.Configuration;
+using TodoList.Server.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 

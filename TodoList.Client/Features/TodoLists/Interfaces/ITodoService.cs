@@ -1,6 +1,6 @@
-﻿using TodoList.Server.TodoList.Models;
+﻿using TodoList.Client.Features.TodoLists.Models;
 
-namespace TodoList.Server.TodoList.Interfaces
+namespace TodoList.Client.Features.TodoLists.Interfaces
 {
     public interface ITodoService
     {

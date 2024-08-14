@@ -1,8 +1,8 @@
 using TodoList.Client;
-using TodoList.Client.Interfaces;
-using TodoList.Client.Services;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
+using TodoList.Client.Features.TodoLists.Interfaces;
+using TodoList.Client.Features.TodoLists.Services;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");
@@ -17,9 +17,9 @@ builder.Services.AddHttpClient("TodoListServer", client =>
 builder.Services.AddBlazorBootstrap();
 
 // Register Service
-builder.Services.AddTransient<ITodoService, TodoService>();
-builder.Services.AddTransient<ITodoDataProvider, TodoDataProvider>();
-builder.Services.AddTransient<ITodoSearchService, TodoSearchService>();
-builder.Services.AddTransient<INotificationService, NotificationService>();
+builder.Services.AddScoped<ITodoService, TodoService>();
+builder.Services.AddScoped<ITodoDataProvider, TodoDataProvider>();
+builder.Services.AddScoped<ITodoSearchService, TodoSearchService>();
+builder.Services.AddScoped<INotificationService, NotificationService>();
 
 await builder.Build().RunAsync();

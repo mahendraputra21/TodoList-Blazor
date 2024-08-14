@@ -1,6 +1,6 @@
 ﻿@inherits ComponentBase
-@using TodoList.Client.Models
-@using TodoList.Client.Services
+@using TodoList.Client.Features.TodoLists.Models
+@using TodoList.Client.Features.TodoLists.Services
 
 <div class="d-flex justify-content-between align-items-center mb-3">
    
@@ -50,7 +50,7 @@ else
                 HeaderTextAlignment="Alignment.Center" 
                 TextAlignment="Alignment.Center">
                 @{
-                    var iconName = context.Completed ? IconName.CheckSquareFill : IconName.XCircleFill;
+                    var iconName = context.Completed ? IconName.Check : IconName.XCircle;
                     var iconColor = context.Completed ? "text-success" : "text-danger";
                 }
                 <Icon Name="@iconName" Class="@iconColor" Size="IconSize.x6"/>
@@ -63,7 +63,7 @@ else
                 <Button Color="ButtonColor.Primary"
                         Disabled="@(State.SelectedTodos.FirstOrDefault()?.Id != context.Id)"
                         Size="Size.Small"
-                        Outline="true">
+                        >
                     <Icon Name="IconName.PencilSquare" /> UPDATE
                 </Button>
                 |
@@ -71,7 +71,7 @@ else
                         Disabled="@(State.SelectedTodos.FirstOrDefault()?.Id != context.Id)"
                         @onclick="@(() => ShowConfirmationAsync(context.Id))"
                         Size="Size.Small"
-                        Outline="true">
+                        >
                     <Icon Name="IconName.Trash" /> DELETE
                 </Button>
             </GridColumn>

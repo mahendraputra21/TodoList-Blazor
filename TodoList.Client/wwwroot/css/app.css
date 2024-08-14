@@ -101,3 +101,22 @@ a, .btn-link {
 code {
     color: #c02d76;
 }
+
+/*ADDING FOR DARK THEME*/
+
+.dark-mode .sidebar-dark {
+    background-color: #343a40;
+    color: #f8f9fa;
+}
+
+.dark-mode .sidebar-dark .nav-item a {
+    color: #f8f9fa;
+}
+
+.dark-mode .sidebar-dark .nav-item a:hover {
+    background-color: #495057;
+}
+
+.dark-mode .sidebar-dark .sidebar-logo {
+    background-color: #212529;
+}

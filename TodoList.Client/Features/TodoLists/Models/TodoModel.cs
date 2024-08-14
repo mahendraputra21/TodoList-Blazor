@@ -1,8 +1,6 @@
-﻿using System.Text.Json.Serialization;
-
-namespace TodoList.Server.TodoList.Models
+﻿namespace TodoList.Client.Features.TodoLists.Models
 {
-    public class TodoDto
+    public class TodoModel
     {
         public int Id { get; set; }
         public string? Todo { get; set; }

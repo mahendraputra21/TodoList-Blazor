@@ -1,6 +1,7 @@
-﻿using TodoList.Server.TodoList.Models;
+﻿using TodoList.Server.Features.TodoLists.Interfaces;
+using TodoList.Server.Features.TodoLists.Models;
 
-namespace TodoList.Server.TodoList.Interfaces
+namespace TodoList.Server.Features.TodoLists.Services
 {
     public class TodoSearchService : ITodoSearchService
     {

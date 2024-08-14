@@ -1,7 +1,7 @@
-﻿using TodoList.Client.Interfaces;
-using TodoList.Client.Models;
+﻿using TodoList.Server.Features.TodoLists.Interfaces;
+using TodoList.Server.Features.TodoLists.Models;
 
-namespace TodoList.Client.Services
+namespace TodoList.Server.Features.TodoLists.Services
 {
     public class TodoDataProvider : ITodoDataProvider
     {
@@ -12,10 +12,9 @@ namespace TodoList.Client.Services
             _todoService = todoService;
         }
 
-        public async Task<IEnumerable<TodoModel>> GetTodosAsync(int pageSize, int skip)
+        public async Task<TodoResponse?> GetTodosAsync(int pageSize, int skip)
         {
-            var response = await _todoService.GetTodosByPaginationAsync(pageSize, skip);
-            return response?.Todos ?? Enumerable.Empty<TodoModel>();
+            return await _todoService.GetTodosByPaginationAsync(pageSize, skip);
         }
 
         public async Task<int> GetTotalCountAsync()
@@ -26,7 +25,7 @@ namespace TodoList.Client.Services
 
         public async Task<bool> DeleteTodoByIdAsync(int id)
         {
-           return await _todoService.DeleteTodoByIdAsync(id);
+            return await _todoService.DeleteTodoByIdAsync(id);
         }
     }
 }
