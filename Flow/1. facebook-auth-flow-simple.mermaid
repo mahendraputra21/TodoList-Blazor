@@ -1,0 +1,10 @@
+flowchart TD
+    A[User clicks Login] --> B[facebook-signin]
+    B --> C[Facebook Login Page]
+    C --> D[Facebook redirects]
+    D --> E[facebook-response]
+    E --> F{Auth Successful?}
+    F -->|Yes| G[Sign in user]
+    G --> H[auth-success]
+    H --> I[Client gets user info]
+    F -->|No| J[BadRequest]
