@@ -1,20 +1,21 @@
 using TodoList.Server.TodoList.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
+var configuration = builder.Configuration;
 
 // Add services to the container.
-
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 // Register Services
 builder.Services.AddTodoServices();
+builder.Services.AddAuthService();
+builder.Services.AddFacebookAuthService(configuration);
 
 // Read configuration
-string clientUrl = builder.Configuration["ClientUrl"]!;
-string thridPartyURLBase = builder.Configuration["DummyJsonBaseUrl"]!;
+string clientUrl = configuration["ClientUrl"]!;
+string thridPartyURLBase = configuration["DummyJsonBaseUrl"]!;
 
 // Add CORS services
 builder.Services.AddCors(options =>
@@ -44,11 +45,12 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+// Use CORS middleware
+app.UseCors("AllowTodoClient");
+
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
-
-// Use CORS middleware
-app.UseCors("AllowTodoClient");
 
 app.Run();
